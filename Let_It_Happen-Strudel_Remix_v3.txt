@@ -1,0 +1,53 @@
+// Speed of main and assist
+const s_chords = 24
+const s_ends = 3
+
+// Song
+const intro = note("C4 D4@ D4 C4 B3 C4@ A3 B3@ B3 A3 G3 B3@ B3 C4@ B3@3")
+  .sound("gm_distortion_guitar")
+  .slow(3)
+
+const chord = note("C4@3 C4@ D4 C4 B3 A3 B3 A3@6 B3 C4 B3@6 C4@3 C4@ D4 C4 B3 A3 B3 A3@6 G3@3 G3@ F#3 E3 D3 C3@4 C5 D5 C5 B4 A4 B4 A4@6 B4 C5 B4@6 C5@4 C5 D5 C5 B4 A4 B4 A4@6 G4@3 G4@ F#4 E4 D4 C4@ D4@0.5 C4@ D4@0.5 C4@8 C4@2 D4@2 D4@1 C4 B3 C4@ A3 B3 B3@ A3 G3 B3@ B3 C4@ B3@4 C4@3 C4@ D4 C4 B3 A3 B3 A3@6 B3 C4 B3@6 C4@3 C4@ D4 C4 B3 A3 B3 A3@6 G3@3 G3@ F#3 E3 D3")
+  .sound("gm_electric_guitar_clean")
+  .slow(s_chords)
+  .gain(2)
+
+const chord_assist = note("C4@3 C4@ D4 C4 B3 A3 B3 A3@6 B3 C4 B3@6 C4@3 C4@ D4 C4 B3 A3 B3 A3@6 G3@3 G3@ F#3 E3 D3 C3@4 C5 D5 C5 B4 A4 B4 A4@6 B4 C5 B4@6 C5@4 C5 D5 C5 B4 A4 B4 A4@6 G4@3 G4@ F#4 E4 D4 C4@ D4@0.5 C4@ D4@0.5 C4@8 C4@2 D4@2 D4@1 C4 B3 C4@ A3 B3 B3@ A3 G3 B3@ B3 C4@ B3@4 C4@3 C4@ D4 C4 B3 A3 B3 A3@6 B3 C4 B3@6 C4@3 C4@ D4 C4 B3 A3 B3 A3@6 G3@3 G3@ F#3 E3 D3")
+  .sound("gm_distortion_guitar")
+  .slow(s_chords)
+  .gain(1.5)
+
+const drumm = s("bd ~ sd ~")
+  .fast(0.75)
+  .gain(0.1)
+
+const drumm_assist = s(stack("bd", "sd"))
+  .fast(0.75 * 3)
+  .gain(0.2)
+
+const bass = note("7 7".add(-12))
+  .scale("E:minor")
+  .sound("saw")
+  .decay(0.2)
+  .release(0.2)
+  .fast(3.5)
+
+const end = note("C3")
+  .sound("gm_electric_guitar_clean")
+  .gain(2)
+  .slow(s_ends)
+
+const end_assist = note("C3")
+  .sound("gm_distortion_guitar")
+  .gain(1.5)
+  .slow(s_ends)
+// End Song
+
+// Arrange
+$: arrange(
+  [3, intro],
+  [24, stack(chord, chord_assist, drumm, drumm_assist, bass)],
+  [20, stack(end, end_assist)]
+)
+  .color("#ffb3b3 #ffe5b4 #ffffba #baffc9 #bae1ff #e8daff #ffbfff")
+  .punchcard()
